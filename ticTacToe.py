@@ -43,7 +43,7 @@ def main():
     turn = 0
     winner = ""
     isDrawn = False
-    while winner != "X" and winner != "O":
+    while winner != "X" and winner != "O" and not isDrawn:
         player = "X"
         if turn % 2 != 0:
             player = "O"
