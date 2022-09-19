@@ -1,6 +1,7 @@
 import os
 
 gameBoard = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+winningCases = []
 
 def  cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -10,6 +11,8 @@ def printGame():
     for i in range(9):
         if validateMove(i):
             print(f"|{gameBoard[i]}|", end="")
+        elif i in winningCases:
+            print(f"\033[92m|{gameBoard[i]}|\033[0m", end="")
         elif gameBoard[i] == "X":
             print(f"\033[96m|{gameBoard[i]}|\033[0m", end="")
         else:
@@ -21,15 +24,30 @@ def validateMove(postion):
     return gameBoard[postion] != "O" and gameBoard[postion] != "X"
 
 def checkForWinner():
-    if (gameBoard[0] == gameBoard[4] and gameBoard[4] == gameBoard[8]) or (gameBoard[2] == gameBoard[4] and gameBoard[4] == gameBoard[6]):
+    if (gameBoard[2] == gameBoard[4] and gameBoard[4] == gameBoard[6]):
+            winningCases.append(2)
+            winningCases.append(4)
+            winningCases.append(6)
+            return gameBoard[4]
+
+    if (gameBoard[0] == gameBoard[4] and gameBoard[4] == gameBoard[8]):
+            winningCases.append(0)
+            winningCases.append(4)
+            winningCases.append(8)
             return gameBoard[4]
 
     for i in range(0,8,3):
         if (gameBoard[i] == gameBoard[i+1] and gameBoard[i+1] == gameBoard[i+2]):
+            winningCases.append(i)
+            winningCases.append(i+1)
+            winningCases.append(i+2)
             return gameBoard[i]
 
     for i in range (0,3):
         if (gameBoard[i] == gameBoard[i+3] and gameBoard[i+6] == gameBoard[i+3]):
+            winningCases.append(i)
+            winningCases.append(i+3)
+            winningCases.append(i+6)
             return gameBoard[i]   
     return ""
 
@@ -66,6 +84,7 @@ def main():
         if winner == '':
             isDrawn = checkForDrawn()
         turn += 1
+    printGame()
     if isDrawn:
         print("It's a drawn!")
     else:
