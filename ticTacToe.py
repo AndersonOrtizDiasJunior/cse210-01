@@ -1,3 +1,4 @@
+# W02 Prove: Developer - Solo Code Submission - Anderson Ortiz Dias Junior
 import os
 
 gameBoard = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
